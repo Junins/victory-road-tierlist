@@ -1,0 +1,470 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Victory Road - Tier List (3.0.1)</title>
+
+<style>
+body {
+  font-family: Arial, Helvetica, sans-serif;
+  background: #0f172a;
+  color: #e5e7eb;
+  margin: 0;
+  padding: 20px;
+}
+
+h1 { margin-bottom: 8px; }
+
+.tabs {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 12px;
+}
+
+.tab {
+  padding: 8px 14px;
+  background: #020617;
+  border: 2px solid #1e293b;
+  border-radius: 10px;
+  cursor: pointer;
+}
+
+.tab.active {
+  border-color: #38bdf8;
+  color: #38bdf8;
+}
+
+/* ===== Search & Filter ===== */
+.search-container {
+  position: relative;
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  margin-bottom: 12px;
+}
+
+#search-bar {
+  width: 30%;
+  padding: 8px 12px;
+  border-radius: 8px;
+  border: 1px solid #1e293b;
+  background: #020617;
+  color: #e5e7eb;
+  font-size: 1rem;
+}
+
+.search-results {
+  position: absolute;
+  top: 110%;
+  left: 0;
+  width: 30%;
+  background: #020617;
+  border: 1px solid #1e293b;
+  border-radius: 8px;
+  max-height: 300px;
+  overflow-y: auto;
+  z-index: 10;
+}
+
+.search-item {
+  display: flex;
+  gap: 8px;
+  padding: 6px;
+  cursor: pointer;
+  align-items: center;
+  border-bottom: 1px solid #1e293b;
+}
+
+.search-item:hover { background: #1e293b; }
+.search-item img { width: 32px; height: 32px; object-fit: cover; border-radius: 4px; }
+.search-item span { font-size: 0.9rem; }
+
+/* ===== Filter Dropdown ===== */
+.filter-dropdown-container { position: relative; }
+.filter-dropdown-container button {
+  padding: 8px 10px;
+  border-radius: 8px;
+  border: 1px solid #1e293b;
+  background: #020617;
+  color: #e5e7eb;
+  cursor: pointer;
+}
+.filter-dropdown {
+  display: none;
+  position: absolute;
+  right: 0;
+  top: 110%;
+  background: #020617;
+  border: 1px solid #1e293b;
+  border-radius: 8px;
+  padding: 10px;
+  z-index: 20;
+  min-width: 200px;
+  flex-direction: column;
+  gap: 8px;
+}
+.filter-dropdown select, .filter-dropdown button {
+  width: 100%;
+  padding: 6px 10px;
+  border-radius: 8px;
+  border: 1px solid #1e293b;
+  background: #020617;
+  color: #e5e7eb;
+  cursor: pointer;
+}
+
+/* ===== Tier bar ===== */
+.tier-bar {
+  display: grid;
+  grid-template-columns: repeat(8, 1fr);
+  gap: 12px;
+  margin-bottom: 12px;
+}
+
+.tier-box {
+  background: #020617;
+  border: 2px solid #1e293b;
+  border-radius: 12px;
+  padding: 16px;
+  text-align: center;
+  font-size: 1.3rem;
+  cursor: pointer;
+}
+
+.tier-box.active {
+  border-color: #38bdf8;
+  color: #38bdf8;
+}
+
+/* ===== Stats panel ===== */
+.stats-panel {
+  background: #020617;
+  border: 2px solid #1e293b;
+  border-radius: 12px;
+  padding: 16px;
+  margin-bottom: 20px;
+  display: none;
+}
+
+.stats-section { margin-bottom: 12px; }
+
+.stats-section h3 {
+  font-size: .8rem;
+  color: #94a3b8;
+  margin: 0 0 6px;
+}
+
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+  gap: 8px;
+  font-size: .8rem;
+}
+
+.stat {
+  background: #020617;
+  border: 1px solid #1e293b;
+  border-radius: 8px;
+  padding: 6px 8px;
+  display: flex;
+  justify-content: space-between;
+}
+
+/* ===== Characters ===== */
+.tier-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(96px, 1fr));
+  gap: 12px;
+}
+
+.char-card {
+  aspect-ratio: 1 / 1;
+  border-radius: 10px;
+  overflow: hidden;
+  background: #020617;
+  border: 2px solid transparent;
+  position: relative;
+}
+
+.char-card img { width: 100%; height: 100%; object-fit: cover; }
+
+.char-tooltip {
+  position: absolute;
+  inset: 0;
+  background: rgba(2,6,23,.92);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: .75rem;
+  opacity: 0;
+}
+
+.char-card:hover .char-tooltip { opacity: 1; }
+
+.char-name { font-weight: bold; }
+.char-element { font-size: .7rem; color: #93c5fd; }
+
+/* ===== Element colors ===== */
+.char-card[data-element="山 (Mountain)"] { border-color:#fb923c; box-shadow:0 0 8px rgba(251,146,60,.6); }
+.char-card[data-element="火 (Fire)"] { border-color:#ef4444; box-shadow:0 0 8px rgba(239,68,68,.6); }
+.char-card[data-element="風 (Wind)"] { border-color:#38bdf8; box-shadow:0 0 8px rgba(56,189,248,.6); }
+.char-card[data-element="林 (Forest)"] { border-color:#22c55e; box-shadow:0 0 8px rgba(34,197,94,.6); }
+</style>
+</head>
+
+<body>
+<h1>Victory Road - Tier List (3.0.1)</h1>
+
+<div class="tabs">
+  <div class="tab active" id="tab-fw">FW</div>
+  <div class="tab" id="tab-mf">MF</div>
+  <div class="tab" id="tab-df">DF</div>
+  <div class="tab" id="tab-gk">GK</div>
+</div>
+
+<!-- Search + Filter -->
+<div class="search-container">
+  <input type="text" id="search-bar" placeholder="Search character...">
+  
+  <div class="filter-dropdown-container">
+    <button id="filter-btn">⚙️</button>
+    <div class="filter-dropdown" id="filter-dropdown">
+      <select id="filter-gender">
+        <option value="">All Genders</option>
+        <option value="男 (Male)">Male</option>
+        <option value="女 (Female)">Female</option>
+        <option value="不明">Unknown</option>
+        <option value="両性">Neutral</option>
+        <option value="不可">None</option>
+      </select>
+      <select id="filter-element">
+        <option value="">All Elements</option>
+        <option value="風 (Wind)">Wind</option>
+        <option value="林 (Forest)">Forest</option>
+        <option value="火 (Fire)">Fire</option>
+        <option value="山 (Mountain)">Mountain</option>
+      </select>
+      <button id="reset-filters">Reset Filters</button>
+    </div>
+  </div>
+
+  <div class="search-results" id="search-results"></div>
+</div>
+
+<div class="tier-bar" id="tier-bar"></div>
+
+<div class="stats-panel" id="stats-panel">
+  <div class="stats-section">
+    <h3>Stats</h3>
+    <div class="stats-grid" id="stats-basic"></div>
+  </div>
+  <div class="stats-section">
+    <h3>AT / DF</h3>
+    <div class="stats-grid" id="stats-atdf"></div>
+  </div>
+</div>
+
+<div class="tier-grid" id="tier-grid"></div>
+
+<script>
+const SHEET_ID="1N4h7z27Rxq3bvYuR9VyeQv3Ze-zwo-1XZQTd9rZa-Zs";
+const GID_MAIN="1173802089";
+const GID_STATS="425305907";
+const URL_MAIN=`https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:json&gid=${GID_MAIN}`;
+const URL_STATS=`https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:json&gid=${GID_STATS}`;
+
+const BASIC_STATS=["Kick","Control","Technique","Pressure","Physical","Agility","Intelligence","Total Stats"];
+const ATDF_STATS=["Shot AT","Focus AT","Focus DF","Scramble AT","Scramble DF","Castle Wall DF","KP"];
+
+const GK_TIERS=[{tier:"S",Total:689,KP:955},{tier:"A",Total:674,KP:940},{tier:"B",Total:674,KP:934},{tier:"C",Total:667,KP:935},{tier:"D",Total:667,KP:925},{tier:"E",Total:656,KP:913}];
+const FW_TIERS=[{tier:"S",Shot:236,Total:692},{tier:"A",Shot:233,Total:682},{tier:"C",Shot:232,Total:671},{tier:"E",Shot:230,Total:666},{tier:"B",Shot:226,Total:692},{tier:"D",Shot:224,Total:683},{tier:"F",Shot:221,Total:672},{tier:"G",Shot:219,Total:665}];
+const MF_TIERS=[
+  {tier:"S",FocusAT:281,FocusDF:189,Total:693},{tier:"B",FocusAT:277.5,FocusDF:259,Total:683},{tier:"D",FocusAT:275.5,FocusDF:255.5,Total:672},
+  {tier:"F",FocusAT:273.5,FocusDF:253.5,Total:667},{tier:"A",FocusAT:273,FocusDF:251.5,Total:693},{tier:"C",FocusAT:270.5,FocusDF:248.5,Total:684},
+  {tier:"E",FocusAT:266.5,FocusDF:244.5,Total:672},{tier:"G",FocusAT:264,FocusDF:242.5,Total:667}
+];
+const DF_TIERS=[
+  {tier:"S",CastleWallDF:214,FocusDF:254.5,Total:690},{tier:"A",CastleWallDF:207,FocusDF:254.5,Total:691},{tier:"B",CastleWallDF:211,FocusDF:248.5,Total:675},
+  {tier:"D",CastleWallDF:209,FocusDF:248.5,Total:671},{tier:"F",CastleWallDF:208,FocusDF:244.5,Total:663},{tier:"C",CastleWallDF:203,FocusDF:248.5,Total:674},
+  {tier:"E",CastleWallDF:202,FocusDF:248.5,Total:672},{tier:"G",CastleWallDF:199,FocusDF:246,Total:663}
+];
+
+let rows=[], cols={}, stats={}, currentRole="FW";
+const tierBar=document.getElementById("tier-bar");
+const tierGrid=document.getElementById("tier-grid");
+const statsPanel=document.getElementById("stats-panel");
+const statsBasic=document.getElementById("stats-basic");
+const statsATDF=document.getElementById("stats-atdf");
+const lastSelectedTier = { FW: "S", MF: "S", DF: "S", GK: "S" };
+
+let currentFilterGender = "";
+let currentFilterElement = "";
+
+// === Funções ===
+
+// Calcular tier
+function calcTier(obj){
+  if(obj.role==="GK"){ for(const t of GK_TIERS) if(obj["Total Stats"]>=t.Total && obj.KP>=t.KP) return t.tier; }
+  else if(obj.role==="FW"){ for(const t of FW_TIERS) if(obj["Shot AT"]>=t.Shot && obj["Total Stats"]>=t.Total) return t.tier; }
+  else if(obj.role==="MF"){ for(const t of MF_TIERS) if(obj["Focus AT"]>=t.FocusAT && obj["Focus DF"]>=t.FocusDF && obj["Total Stats"]>=t.Total) return t.tier; }
+  else if(obj.role==="DF"){ for(const t of DF_TIERS) if(obj["Castle Wall DF"]>=t.CastleWallDF && obj["Focus DF"]>=t.FocusDF && obj["Total Stats"]>=t.Total) return t.tier; }
+  return null;
+}
+
+// Mostrar stats
+function showStats(obj){
+  statsBasic.innerHTML=""; statsATDF.innerHTML="";
+  BASIC_STATS.forEach(s=>statsBasic.innerHTML+=`<div class="stat"><span>${s}</span><strong>${obj[s]}</strong></div>`);
+  ATDF_STATS.forEach(s=>statsATDF.innerHTML+=`<div class="stat"><span>${s}</span><strong>${obj[s]}</strong></div>`);
+}
+
+// Construir tier list
+function build(role){
+  tierBar.innerHTML=""; tierGrid.innerHTML=""; statsPanel.style.display="none";
+
+  let chars = rows.filter(r=>r.role===role && r.tier);
+  if(currentFilterGender) chars = chars.filter(c => c.Gender === currentFilterGender);
+  if(currentFilterElement) chars = chars.filter(c => c.Element === currentFilterElement);
+
+  const tiers = role==="GK"?["S","A","B","C","D","E"]:["S","A","B","C","D","E","F","G"];
+
+  tiers.forEach(t => {
+    const box = document.createElement("div");
+    box.className = "tier-box";
+    box.textContent = t;
+    if(t === lastSelectedTier[role]) box.classList.add("active");
+
+    box.onclick = () => {
+      lastSelectedTier[role] = t;
+      Array.from(tierBar.children).forEach(child=>child.classList.remove("active"));
+      box.classList.add("active");
+
+      tierGrid.innerHTML = "";
+      const list = chars.filter(c=>c.tier===t);
+      if(!list.length) return;
+      statsPanel.style.display="block";
+      showStats(list[0]);
+      list.forEach(p=>{
+        const c = document.createElement("div");
+        c.className = "char-card";
+        c.dataset.element = p.Element;
+        c.innerHTML = `<img src="images/${p.id}.png"><div class="char-tooltip"><div class="char-name">${p.name}</div><div class="char-element">${p.Element}</div></div>`;
+        tierGrid.appendChild(c);
+      });
+    };
+    tierBar.appendChild(box);
+  });
+
+  // Abrir automaticamente o último tier selecionado
+  tierBar.querySelectorAll(".tier-box").forEach(box=>{
+    if(box.textContent===lastSelectedTier[role]) box.click();
+  });
+}
+
+// Tabs
+function activateTab(tabId, role){
+  currentRole = role;
+  document.querySelectorAll(".tab").forEach(t=>t.classList.remove("active"));
+  document.getElementById(tabId).classList.add("active");
+  build(role);
+}
+
+document.getElementById("tab-fw").onclick = () => activateTab("tab-fw","FW");
+document.getElementById("tab-mf").onclick = () => activateTab("tab-mf","MF");
+document.getElementById("tab-df").onclick = () => activateTab("tab-df","DF");
+document.getElementById("tab-gk").onclick = () => activateTab("tab-gk","GK");
+
+// === Filtros dropdown ===
+const filterBtn = document.getElementById("filter-btn");
+const filterDropdown = document.getElementById("filter-dropdown");
+const filterGender = document.getElementById("filter-gender");
+const filterElement = document.getElementById("filter-element");
+const resetFiltersBtn = document.getElementById("reset-filters");
+
+// Toggle dropdown
+filterBtn.onclick = e => {
+  e.stopPropagation();
+  filterDropdown.style.display = filterDropdown.style.display === "flex" ? "none" : "flex";
+};
+
+// Evitar que clique dentro do dropdown feche
+filterDropdown.onclick = e => e.stopPropagation();
+
+// Fechar se clicar fora
+document.addEventListener("click", () => {
+  filterDropdown.style.display = "none";
+});
+
+// Aplicar filtros
+filterGender.onchange = e => { currentFilterGender = e.target.value; build(currentRole); };
+filterElement.onchange = e => { currentFilterElement = e.target.value; build(currentRole); };
+
+// Resetar filtros
+resetFiltersBtn.onclick = () => {
+  currentFilterGender = "";
+  currentFilterElement = "";
+  filterGender.value = "";
+  filterElement.value = "";
+  build(currentRole);
+};
+
+// === Pesquisa ===
+const searchBar = document.getElementById("search-bar");
+const searchResults = document.getElementById("search-results");
+
+searchBar.addEventListener("input", ()=>{
+  const query = searchBar.value.toLowerCase();
+  searchResults.innerHTML="";
+  if(!query) return;
+  const filtered = rows.filter(r=>r.name.toLowerCase().includes(query) || r["Name(Localised)"]?.toLowerCase().includes(query));
+  filtered.slice(0,50).forEach(r=>{
+    const div = document.createElement("div");
+    div.className="search-item";
+    div.innerHTML=`<img src="images/${r.id}.png"><span>${r.name} (${r["Name(Localised)"]})</span>`;
+    div.onclick = () => {
+      searchResults.innerHTML="";
+      searchBar.value="";
+      activateTab("tab-"+r.role.toLowerCase(),r.role);
+      lastSelectedTier[r.role] = r.tier;
+      tierBar.querySelectorAll(".tier-box").forEach(box=>{
+        if(box.textContent===r.tier) box.click();
+      });
+    };
+    searchResults.appendChild(div);
+  });
+});
+
+// === Carregar dados ===
+Promise.all([fetch(URL_MAIN).then(r=>r.text()), fetch(URL_STATS).then(r=>r.text())]).then(([m,s])=>{
+  const mj = JSON.parse(m.substring(47,m.length-2));
+  const sj = JSON.parse(s.substring(47,s.length-2));
+  mj.table.cols.forEach((c,i)=>cols[c.label]=i);
+  sj.table.rows.forEach(r=>{
+    const id = r.c[0]?.v;
+    stats[id] = {};
+    sj.table.cols.forEach((c,i)=>stats[id][c.label]=r.c[i]?.v??0);
+  });
+
+  rows = mj.table.rows.map(r=>{
+    const id = r.c[cols.ID]?.v;
+    const obj = {
+      id,
+      role:r.c[cols.Position]?.v,
+      name:r.c[cols["Name(Romaji)"]]?.v,
+      "Name(Localised)": r.c[cols["Name(Localised)"]]?.v,
+      Element:r.c[cols.Element]?.v,
+      Gender: r.c[cols.Gender]?.v
+    };
+    BASIC_STATS.forEach(s=>obj[s]=r.c[cols[s]]?.v??0);
+    ATDF_STATS.forEach(s=>obj[s]=stats[id]?.[s]??0);
+    obj.tier = calcTier(obj);
+    return obj;
+  });
+
+  build(currentRole);
+});
+</script>
+</body>
+</html>
