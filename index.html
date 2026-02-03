@@ -223,7 +223,7 @@ h1 { margin-bottom: 4px; }
 
 <body>
 <h1>Victory Road - Tier List (3.0.1)</h1>
-<div class="author">Created by @Juninfs (Discord)</div>
+<div class="author">Created by @Juninfs (Discord) / Based on "@danifdez (Discord)"'s tier list</div>
 
 <div class="tabs">
   <div class="tab active" id="tab-fw">FW</div>
@@ -286,17 +286,17 @@ const URL_STATS=`https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=
 const BASIC_STATS=["Kick","Control","Technique","Pressure","Physical","Agility","Intelligence","Total Stats"];
 const ATDF_STATS=["Shot AT","Focus AT","Focus DF","Scramble AT","Scramble DF","Castle Wall DF","KP"];
 
-const GK_TIERS=[{tier:"S",Total:689,KP:955},{tier:"A",Total:674,KP:940},{tier:"C",Total:674,KP:934},{tier:"B",Total:667,KP:935},{tier:"D",Total:667,KP:925},{tier:"E",Total:656,KP:913}];
-const FW_TIERS=[{tier:"S",Shot:236,Total:692},{tier:"A",Shot:233,Total:682},{tier:"B",Shot:232,Total:671},{tier:"C",Shot:230,Total:666},{tier:"D",Shot:226,Total:692},{tier:"E",Shot:224,Total:683},{tier:"F",Shot:221,Total:672},{tier:"G",Shot:219,Total:665}];
+const GK_TIERS=[{tier:"G5",Total:689,KP:955},{tier:"G4+",Total:674,KP:940},{tier:"G3+",Total:674,KP:934},{tier:"G4-",Total:667,KP:935},{tier:"G3-",Total:667,KP:925},{tier:"G2",Total:656,KP:913}];
+const FW_TIERS=[{tier:"G5",Shot:236,Total:692},{tier:"G4+",Shot:233,Total:682},{tier:"G4",Shot:232,Total:671},{tier:"G4-",Shot:230,Total:666},{tier:"G3+",Shot:226,Total:692},{tier:"G3-",Shot:224,Total:683},{tier:"G2+",Shot:221,Total:672},{tier:"G2-",Shot:219,Total:665}];
 const MF_TIERS=[
-  {tier:"S",FocusAT:281,FocusDF:189,Total:693},{tier:"A",FocusAT:277.5,FocusDF:259,Total:683},{tier:"B",FocusAT:275.5,FocusDF:255.5,Total:672},
-  {tier:"C",FocusAT:273.5,FocusDF:253.5,Total:667},{tier:"D",FocusAT:273,FocusDF:251.5,Total:693},{tier:"E",FocusAT:270.5,FocusDF:248.5,Total:684},
-  {tier:"F",FocusAT:266.5,FocusDF:244.5,Total:672},{tier:"G",FocusAT:264,FocusDF:242.5,Total:667}
+  {tier:"G5+",FocusAT:281,FocusDF:189,Total:693},{tier:"G5-",FocusAT:277.5,FocusDF:259,Total:683},{tier:"G4+",FocusAT:275.5,FocusDF:255.5,Total:672},
+  {tier:"G3+",FocusAT:273.5,FocusDF:253.5,Total:667},{tier:"G4-",FocusAT:273,FocusDF:251.5,Total:693},{tier:"G3-",FocusAT:270.5,FocusDF:248.5,Total:684},
+  {tier:"G2+",FocusAT:266.5,FocusDF:244.5,Total:672},{tier:"G2-",FocusAT:264,FocusDF:242.5,Total:667}
 ];
 const DF_TIERS=[
-  {tier:"S",CastleWallDF:214,FocusDF:254.5,Total:690},{tier:"A",CastleWallDF:207,FocusDF:254.5,Total:691},{tier:"B",CastleWallDF:211,FocusDF:248.5,Total:675},
-  {tier:"D",CastleWallDF:209,FocusDF:248.5,Total:671},{tier:"F",CastleWallDF:208,FocusDF:244.5,Total:663},{tier:"C",CastleWallDF:203,FocusDF:248.5,Total:674},
-  {tier:"E",CastleWallDF:202,FocusDF:248.5,Total:672},{tier:"G",CastleWallDF:199,FocusDF:246,Total:663}
+  {tier:"GO",CastleWallDF:214,FocusDF:254.5,Total:690},{tier:"G5 FB",CastleWallDF:207,FocusDF:254.5,Total:691},{tier:"G5 CB",CastleWallDF:211,FocusDF:248.5,Total:675},
+  {tier:"G4 CB",CastleWallDF:209,FocusDF:248.5,Total:671},{tier:"G3 CB",CastleWallDF:208,FocusDF:244.5,Total:663},{tier:"G4 FB",CastleWallDF:203,FocusDF:248.5,Total:674},
+  {tier:"G3 FB",CastleWallDF:202,FocusDF:248.5,Total:672},{tier:"G2",CastleWallDF:199,FocusDF:246,Total:663}
 ];
 
 let rows=[], cols={}, stats={}, currentRole="FW";
@@ -305,7 +305,7 @@ const tierGrid=document.getElementById("tier-grid");
 const statsPanel=document.getElementById("stats-panel");
 const statsBasic=document.getElementById("stats-basic");
 const statsATDF=document.getElementById("stats-atdf");
-const lastSelectedTier = { FW: "S", MF: "S", DF: "S", GK: "S" };
+const lastSelectedTier = { FW: "G5", MF: "G5+", DF: "GO", GK: "G5" };
 
 let currentFilterGender = "";
 let currentFilterElement = "";
@@ -336,7 +336,7 @@ function build(role){
   if(currentFilterGender) chars = chars.filter(c => c.Gender === currentFilterGender);
   if(currentFilterElement) chars = chars.filter(c => c.Element === currentFilterElement);
 
-  const tiers = role==="GK"?["S","A","B","C","D","E"]:["S","A","B","C","D","E","F","G"];
+  const tiers = role==="GK"?["G5","G4+","G4-","G3+","G3-","G2"]:role==="MF"?["G5+","G5-","G4+","G4-","G3+","G3-","G2+","G2-"]:role==="DF"?["GO","G5 CB","G5 FB","G4 CB","G4 FB","G3 CB","G3 FB","G2"]:["G5","G4+","G4","G4-","G3+","G3-","G2+","G2-"];
 
   tiers.forEach(t => {
     const box = document.createElement("div");
