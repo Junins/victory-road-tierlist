@@ -47,7 +47,6 @@
         <option value="Female">Female</option>
         <option value="Unknown">Unknown</option>
         <option value="Neutral">Neutral</option>
-        <option value="None">None</option>
       </select>
       <select id="filter-element">
         <option value="">All Elements</option>
@@ -55,8 +54,29 @@
         <option value="Forest">Forest</option>
         <option value="Fire">Fire</option>
         <option value="Mountain">Mountain</option>
-      </select>
-      <button id="reset-filters">Reset Filters</button>
+     </select>
+	  <select id="filter-age">
+	  <option value="">All Age Groups</option>
+	  <option value="Child">Child</option>
+	  <option value="Elementary">Elementary</option>
+	  <option value="Middle School">Middle School</option>
+	  <option value="High School">High School</option>
+	  <option value="College">College</option>
+	  <option value="Adult">Adult</option>
+	  <option value="Elder">Elder</option>
+	  <option value="Exobeing">Exobeing</option>
+	  <option value="?">?</option>
+	 </select>
+	 <select id="filter-school">
+	  <option value="">All School Years</option>
+	  <option value="Grade 7">Grade 7</option>
+	  <option value="Grade 8">Grade 8</option>
+	  <option value="Grade 9">Grade 9</option>
+	  <option value="School Year">School Year</option>
+	  <option value="-">-</option>
+	  <option value="?">?</option>
+	 </select>
+	<button id="reset-filters">Reset Filters</button>
     </div>
   </div>
 
@@ -66,14 +86,23 @@
 <div class="tier-bar" id="tier-bar"></div>
 
 <div class="stats-panel" id="stats-panel">
+
+
   <div class="stats-section">
     <h3>Stats</h3>
     <div class="stats-grid" id="stats-basic"></div>
   </div>
+
   <div class="stats-section">
     <h3>AT / DF</h3>
     <div class="stats-grid" id="stats-atdf"></div>
   </div>
+
+  <div class="stats-section">
+    <h3 id="tier-special-text" class="tier-special-text"></h3>
+    <div class="stats-grid" id="stats-atdf"></div>
+  </div>
+
 </div>
 
 <div class="tier-grid" id="tier-grid"></div>
@@ -119,9 +148,10 @@ const tierGrid=document.getElementById("tier-grid");
 const statsPanel=document.getElementById("stats-panel");
 const statsBasic=document.getElementById("stats-basic");
 const statsATDF=document.getElementById("stats-atdf");
+const tierSpecialText=document.getElementById("tier-special-text");
 
 const lastSelectedTier = { 
-  FW: { players: "G5", basara: "Fabled+" }, 
+  FW: { players: "GO", basara: "Fabled+" }, 
   MF: { players: "G5+", basara: "Fabled+" }, 
   DF: { players: "GO", basara: "Fabled+" }, 
   GK: { players: "G5", basara: "Fabled+" } 
@@ -129,6 +159,8 @@ const lastSelectedTier = {
 
 let currentFilterGender = "";
 let currentFilterElement = "";
+let currentFilterAge = "";
+let currentFilterSchool = "";
 
 // Elementos DOM
 const playerLevelSelect = document.getElementById("player-level");
@@ -258,13 +290,14 @@ function buildPlayers(role){
   statsPanel.style.display="none";
 
   let chars = rows.filter(r=>r.role===role && r.tier);
-  if(currentFilterGender) chars = chars.filter(c => c.Gender === currentFilterGender);
-  if(currentFilterElement) chars = chars.filter(c => c.Element === currentFilterElement);
-
+	if(currentFilterGender) chars = chars.filter(c => c.Gender === currentFilterGender);
+	if(currentFilterElement) chars = chars.filter(c => c.Element === currentFilterElement);
+	if(currentFilterAge) chars = chars.filter(c => c.AgeGroup === currentFilterAge);
+	if(currentFilterSchool) chars = chars.filter(c => c.SchoolYear === currentFilterSchool);
   const tiers = role==="GK"?["G5","G4+","G3+","G4-","G3-","G2"]:
                 role==="MF"?["G5+","G5-","G4+","G4-","G3+","G3-","G2+","G2-"]:
                 role==="DF"?["GO","G5 CB","G5 FB","G4 CB","G4 FB","G3 CB","G3 FB","G2"]:
-                ["G5","G4+","G4","G4-","G3+","G3-","G2+","G2-"];
+                ["GO","G5","G4+","G4","G4-","G3+","G3-","G2+","G2-"];
 
   tiers.forEach(t => {
     const box = document.createElement("div");
@@ -272,16 +305,29 @@ function buildPlayers(role){
     box.textContent = t;
     if(t === lastSelectedTier[role].players) box.classList.add("active");
 
-    box.onclick = () => {
-      lastSelectedTier[role].players = t;
-      Array.from(tierBar.children).forEach(child=>child.classList.remove("active"));
-      box.classList.add("active");
+	box.onclick = () => {
 
-      tierGrid.innerHTML = "";
-      const list = chars.filter(c=>c.tier===t);
-      if(!list.length) return;
-      statsPanel.style.display="block";
-      showStats(list[list.length-1]);
+	  tierSpecialText.textContent = "";
+
+	  lastSelectedTier[role].players = t;
+
+	  Array.from(tierBar.children).forEach(child=>child.classList.remove("active"));
+	  box.classList.add("active");
+
+	  tierGrid.innerHTML = "";
+	  const list = chars.filter(c=>c.tier===t);
+	  if(!list.length) return;
+
+	  statsPanel.style.display="block";
+
+	/* Texto exclusivo FW GO */
+
+	  if(role==="FW" && t==="GO"){
+		tierSpecialText.textContent =
+		"His Abilearn Board gives him better Stats.";
+	  }
+
+	  showStats(list[list.length-1]);
       list.forEach(p=>{
         const c = document.createElement("div");
         c.className = "char-card";
@@ -310,7 +356,7 @@ function buildPlayers(role){
 ========================================================= */
 const BASARA_STATS = {
   FW: {
-    "Fabled+": { tiers:["G5","G4+","G4","G4-"], Kick:243,Control:231,Technique:211,Pressure:177,Physical:170,Agility:170,Intelligence:187 },
+    "Fabled+": { tiers:["GO","G5","G4+","G4","G4-"], Kick:243,Control:231,Technique:211,Pressure:177,Physical:170,Agility:170,Intelligence:187 },
     "Fabled-": { tiers:["G3+","G3-","G2+","G2-"], Kick:229,Control:224,Technique:204,Pressure:182,Physical:177,Agility:170,Intelligence:201 }
   },
   GK: {
@@ -334,9 +380,10 @@ function buildBasara(role){
 
   // Filtros aplicados no Basara
   let chars = rows.filter(r=>r.role===role);
-  if(currentFilterGender) chars = chars.filter(c => c.Gender === currentFilterGender);
-  if(currentFilterElement) chars = chars.filter(c => c.Element === currentFilterElement);
-
+	if(currentFilterGender) chars = chars.filter(c => c.Gender === currentFilterGender);
+	if(currentFilterElement) chars = chars.filter(c => c.Element === currentFilterElement);
+	if(currentFilterAge) chars = chars.filter(c => c.AgeGroup === currentFilterAge);
+	if(currentFilterSchool) chars = chars.filter(c => c.SchoolYear === currentFilterSchool);
   ["Fabled+","Fabled-"].forEach(bt=>{
     const box = document.createElement("div");
     box.className="tier-box";
@@ -441,6 +488,8 @@ const filterBtn=document.getElementById("filter-btn");
 const filterDropdown=document.getElementById("filter-dropdown");
 const filterGender=document.getElementById("filter-gender");
 const filterElement=document.getElementById("filter-element");
+const filterAge=document.getElementById("filter-age");
+const filterSchool=document.getElementById("filter-school");
 const resetFiltersBtn=document.getElementById("reset-filters");
 
 filterBtn.onclick=e=>{ e.stopPropagation(); filterDropdown.style.display = filterDropdown.style.display==="flex"?"none":"flex"; };
@@ -455,12 +504,30 @@ filterElement.onchange=e=>{
   currentFilterElement=e.target.value; 
   build(); // Sempre rebuild, independente do modo
 };
-resetFiltersBtn.onclick=()=>{
-  currentFilterGender=""; currentFilterElement="";
-  filterGender.value=""; filterElement.value="";
-  build(); // Sempre rebuild, independente do modo
+filterAge.onchange=e=>{
+  currentFilterAge=e.target.value;
+  build();
 };
 
+filterSchool.onchange=e=>{
+  currentFilterSchool=e.target.value;
+  build();
+};
+resetFiltersBtn.onclick=()=>{
+
+  currentFilterGender="";
+  currentFilterElement="";
+  currentFilterAge="";
+  currentFilterSchool="";
+
+  filterGender.value="";
+  filterElement.value="";
+  filterAge.value="";
+  filterSchool.value="";
+
+  build();
+
+};
 /* =========================================================
    SEARCH
 ========================================================= */
@@ -586,6 +653,8 @@ fetch("db.csv")
 
     Gender:r.Gender,
     Element:r.Element,
+	AgeGroup:r["Age Group"],
+	SchoolYear:r["School Year"],
 
     Image:getImagePath(r.ID,r.Image),
 
@@ -618,6 +687,10 @@ fetch("db.csv")
     obj.Intelligence;
 
   obj.tier=calcTier(obj);
+
+if(obj.id === 4840 && obj.role === "FW"){
+  obj.tier = "GO";
+}
 
   return obj;
 
