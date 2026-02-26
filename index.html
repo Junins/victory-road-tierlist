@@ -3,248 +3,58 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Victory Road - Tier List (3.0.1)</title>
+<title>Victory Road - Tier List (4.0.1)</title>
 
-<style>
-body {
-  font-family: Arial, Helvetica, sans-serif;
-  background: #0f172a;
-  color: #e5e7eb;
-  margin: 0;
-  padding: 20px;
-}
-
-h1 { margin-bottom: 8px; }
-
-.tabs {
-  display: flex;
-  gap: 10px;
-  margin-bottom: 12px;
-}
-
-.tab {
-  padding: 8px 14px;
-  background: #020617;
-  border: 2px solid #1e293b;
-  border-radius: 10px;
-  cursor: pointer;
-}
-
-.tab.active {
-  border-color: #38bdf8;
-  color: #38bdf8;
-}
-
-/* ===== Search & Filter ===== */
-.search-container {
-  position: relative;
-  display: flex;
-  gap: 8px;
-  align-items: center;
-  margin-bottom: 12px;
-}
-
-#search-bar {
-  width: 30%;
-  padding: 8px 12px;
-  border-radius: 8px;
-  border: 1px solid #1e293b;
-  background: #020617;
-  color: #e5e7eb;
-  font-size: 1rem;
-}
-
-.search-results {
-  position: absolute;
-  top: 110%;
-  left: 0;
-  width: 30%;
-  background: #020617;
-  border: 1px solid #1e293b;
-  border-radius: 8px;
-  max-height: 300px;
-  overflow-y: auto;
-  z-index: 10;
-}
-
-.search-item {
-  display: flex;
-  gap: 8px;
-  padding: 6px;
-  cursor: pointer;
-  align-items: center;
-  border-bottom: 1px solid #1e293b;
-}
-
-.search-item:hover { background: #1e293b; }
-.search-item img { width: 32px; height: 32px; object-fit: cover; border-radius: 4px; }
-.search-item span { font-size: 0.9rem; }
-
-/* ===== Filter Dropdown ===== */
-.filter-dropdown-container { position: relative; }
-.filter-dropdown-container button {
-  padding: 8px 10px;
-  border-radius: 8px;
-  border: 1px solid #1e293b;
-  background: #020617;
-  color: #e5e7eb;
-  cursor: pointer;
-}
-.filter-dropdown {
-  display: none;
-  position: absolute;
-  right: 0;
-  top: 110%;
-  background: #020617;
-  border: 1px solid #1e293b;
-  border-radius: 8px;
-  padding: 10px;
-  z-index: 20;
-  min-width: 200px;
-  flex-direction: column;
-  gap: 8px;
-}
-.filter-dropdown select, .filter-dropdown button {
-  width: 100%;
-  padding: 6px 10px;
-  border-radius: 8px;
-  border: 1px solid #1e293b;
-  background: #020617;
-  color: #e5e7eb;
-  cursor: pointer;
-}
-
-/* ===== Tier bar ===== */
-.tier-bar {
-  display: grid;
-  grid-template-columns: repeat(8, 1fr);
-  gap: 12px;
-  margin-bottom: 12px;
-}
-
-.tier-box {
-  background: #020617;
-  border: 2px solid #1e293b;
-  border-radius: 12px;
-  padding: 16px;
-  text-align: center;
-  font-size: 1.3rem;
-  cursor: pointer;
-}
-
-.tier-box.active {
-  border-color: #38bdf8;
-  color: #38bdf8;
-}
-
-/* ===== Stats panel ===== */
-.stats-panel {
-  background: #020617;
-  border: 2px solid #1e293b;
-  border-radius: 12px;
-  padding: 16px;
-  margin-bottom: 20px;
-  display: none;
-}
-
-.stats-section { margin-bottom: 12px; }
-
-.stats-section h3 {
-  font-size: .8rem;
-  color: #94a3b8;
-  margin: 0 0 6px;
-}
-
-.stats-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
-  gap: 8px;
-  font-size: .8rem;
-}
-
-.stat {
-  background: #020617;
-  border: 1px solid #1e293b;
-  border-radius: 8px;
-  padding: 6px 8px;
-  display: flex;
-  justify-content: space-between;
-}
-
-/* ===== Characters ===== */
-.tier-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(96px, 1fr));
-  gap: 12px;
-}
-
-.char-card {
-  aspect-ratio: 1 / 1;
-  border-radius: 10px;
-  overflow: hidden;
-  background: #020617;
-  border: 2px solid transparent;
-  position: relative;
-}
-
-.char-card img { width: 100%; height: 100%; object-fit: cover; }
-
-.char-tooltip {
-  position: absolute;
-  inset: 0;
-  background: rgba(2,6,23,.92);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: .75rem;
-  opacity: 0;
-}
-
-.char-card:hover .char-tooltip { opacity: 1; }
-
-.char-name { font-weight: bold; }
-.char-element { font-size: .7rem; color: #93c5fd; }
-
-/* ===== Element colors ===== */
-.char-card[data-element="山 (Mountain)"] { border-color:#fb923c; box-shadow:0 0 8px rgba(251,146,60,.6); }
-.char-card[data-element="火 (Fire)"] { border-color:#ef4444; box-shadow:0 0 8px rgba(239,68,68,.6); }
-.char-card[data-element="風 (Wind)"] { border-color:#38bdf8; box-shadow:0 0 8px rgba(56,189,248,.6); }
-.char-card[data-element="林 (Forest)"] { border-color:#22c55e; box-shadow:0 0 8px rgba(34,197,94,.6); }
-</style>
+<link rel="stylesheet" href="style.css">
 </head>
 
 <body>
-<h1>Victory Road - Tier List (3.0.1)</h1>
+<h1>Victory Road - Tier List (4.0.1)</h1>
+<div class="author">Created by @Juninfs (Discord) / Based on @danifdez (Discord)'s Tier List</div>
 
+<!-- MAIN MODE TABS -->
 <div class="tabs">
+  <div class="tab active" id="tab-players">Players</div>
+  <div class="tab" id="tab-basara">Fabled</div>
+</div>
+
+<!-- POSITION TABS -->
+<div class="tabs" id="position-tabs">
   <div class="tab active" id="tab-fw">FW</div>
   <div class="tab" id="tab-mf">MF</div>
   <div class="tab" id="tab-df">DF</div>
   <div class="tab" id="tab-gk">GK</div>
 </div>
 
-<!-- Search + Filter -->
+<!-- Search + Filters + Level -->
 <div class="search-container">
   <input type="text" id="search-bar" placeholder="Search character...">
-  
+
+  <select id="player-level" class="player-level-select">
+    <option value="1">Normal Player</option>
+    <option value="1.1">Growing Player</option>
+    <option value="1.2">Advanced Player</option>
+    <option value="1.3">Top Player</option>
+    <option value="1.4">Legendary Player</option>
+  </select>
+
   <div class="filter-dropdown-container">
     <button id="filter-btn">⚙️</button>
     <div class="filter-dropdown" id="filter-dropdown">
       <select id="filter-gender">
         <option value="">All Genders</option>
-        <option value="男 (Male)">Male</option>
-        <option value="女 (Female)">Female</option>
-        <option value="不明">Unknown</option>
-        <option value="両性">Neutral</option>
-        <option value="不可">None</option>
+        <option value="Male">Male</option>
+        <option value="Female">Female</option>
+        <option value="Unknown">Unknown</option>
+        <option value="Neutral">Neutral</option>
+        <option value="None">None</option>
       </select>
       <select id="filter-element">
         <option value="">All Elements</option>
-        <option value="風 (Wind)">Wind</option>
-        <option value="林 (Forest)">Forest</option>
-        <option value="火 (Fire)">Fire</option>
-        <option value="山 (Mountain)">Mountain</option>
+        <option value="Wind">Wind</option>
+        <option value="Forest">Forest</option>
+        <option value="Fire">Fire</option>
+        <option value="Mountain">Mountain</option>
       </select>
       <button id="reset-filters">Reset Filters</button>
     </div>
@@ -269,6 +79,9 @@ h1 { margin-bottom: 8px; }
 <div class="tier-grid" id="tier-grid"></div>
 
 <script>
+/* =========================================================
+   CONFIG / DADOS
+========================================================= */
 const SHEET_ID="1N4h7z27Rxq3bvYuR9VyeQv3Ze-zwo-1XZQTd9rZa-Zs";
 const GID_MAIN="1173802089";
 const GID_STATS="425305907";
@@ -278,33 +91,90 @@ const URL_STATS=`https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=
 const BASIC_STATS=["Kick","Control","Technique","Pressure","Physical","Agility","Intelligence","Total Stats"];
 const ATDF_STATS=["Shot AT","Focus AT","Focus DF","Scramble AT","Scramble DF","Castle Wall DF","KP"];
 
-const GK_TIERS=[{tier:"S",Total:689,KP:955},{tier:"A",Total:674,KP:940},{tier:"B",Total:674,KP:934},{tier:"C",Total:667,KP:935},{tier:"D",Total:667,KP:925},{tier:"E",Total:656,KP:913}];
-const FW_TIERS=[{tier:"S",Shot:236,Total:692},{tier:"A",Shot:233,Total:682},{tier:"C",Shot:232,Total:671},{tier:"E",Shot:230,Total:666},{tier:"B",Shot:226,Total:692},{tier:"D",Shot:224,Total:683},{tier:"F",Shot:221,Total:672},{tier:"G",Shot:219,Total:665}];
+/* === TIERS ORIGINAIS (para ranking base) === */
+const GK_TIERS=[{tier:"G5",Total:689,KP:955},{tier:"G4+",Total:674,KP:940},{tier:"G3+",Total:674,KP:934},{tier:"G4-",Total:667,KP:935},{tier:"G3-",Total:667,KP:925},{tier:"G2",Total:656,KP:913}];
+const FW_TIERS=[{tier:"G5",Shot:236,Total:692},{tier:"G4+",Shot:233,Total:682},{tier:"G4",Shot:232,Total:671},{tier:"G4-",Shot:230,Total:666},{tier:"G3+",Shot:226,Total:692},{tier:"G3-",Shot:224,Total:683},{tier:"G2+",Shot:221,Total:672},{tier:"G2-",Shot:219,Total:665}];
 const MF_TIERS=[
-  {tier:"S",FocusAT:281,FocusDF:189,Total:693},{tier:"B",FocusAT:277.5,FocusDF:259,Total:683},{tier:"D",FocusAT:275.5,FocusDF:255.5,Total:672},
-  {tier:"F",FocusAT:273.5,FocusDF:253.5,Total:667},{tier:"A",FocusAT:273,FocusDF:251.5,Total:693},{tier:"C",FocusAT:270.5,FocusDF:248.5,Total:684},
-  {tier:"E",FocusAT:266.5,FocusDF:244.5,Total:672},{tier:"G",FocusAT:264,FocusDF:242.5,Total:667}
+  {tier:"G5+",FocusAT:281,FocusDF:189,Total:693},{tier:"G5-",FocusAT:277,FocusDF:259,Total:683},{tier:"G4+",FocusAT:275,FocusDF:255,Total:672},
+  {tier:"G3+",FocusAT:273,FocusDF:253,Total:667},{tier:"G4-",FocusAT:273,FocusDF:251,Total:693},{tier:"G3-",FocusAT:270,FocusDF:248,Total:684},
+  {tier:"G2+",FocusAT:266,FocusDF:244,Total:672},{tier:"G2-",FocusAT:264,FocusDF:242,Total:667}
 ];
 const DF_TIERS=[
-  {tier:"S",CastleWallDF:214,FocusDF:254.5,Total:690},{tier:"A",CastleWallDF:207,FocusDF:254.5,Total:691},{tier:"B",CastleWallDF:211,FocusDF:248.5,Total:675},
-  {tier:"D",CastleWallDF:209,FocusDF:248.5,Total:671},{tier:"F",CastleWallDF:208,FocusDF:244.5,Total:663},{tier:"C",CastleWallDF:203,FocusDF:248.5,Total:674},
-  {tier:"E",CastleWallDF:202,FocusDF:248.5,Total:672},{tier:"G",CastleWallDF:199,FocusDF:246,Total:663}
+  {tier:"GO",CastleWallDF:214,FocusDF:254,Total:690},{tier:"G5 CB",CastleWallDF:211,FocusDF:248,Total:675},{tier:"G5 FB",CastleWallDF:207,FocusDF:254,Total:691},
+  {tier:"G4 CB",CastleWallDF:209,FocusDF:248,Total:671},{tier:"G4 FB",CastleWallDF:203,FocusDF:248,Total:674},
+  {tier:"G3 CB",CastleWallDF:208,FocusDF:244,Total:663},{tier:"G3 FB",CastleWallDF:202,FocusDF:248,Total:672},{tier:"G2",CastleWallDF:199,FocusDF:246,Total:663}
 ];
 
-let rows=[], cols={}, stats={}, currentRole="FW";
+/* =========================================================
+   ESTADO
+========================================================= */
+let rows=[], cols={}, statsMap={};
+let currentRole="FW";
+let currentMode="players"; // players | basara
+let currentMultiplier=1.0;
+let lastShownChar=null;
+
 const tierBar=document.getElementById("tier-bar");
 const tierGrid=document.getElementById("tier-grid");
 const statsPanel=document.getElementById("stats-panel");
 const statsBasic=document.getElementById("stats-basic");
 const statsATDF=document.getElementById("stats-atdf");
-const lastSelectedTier = { FW: "S", MF: "S", DF: "S", GK: "S" };
+
+const lastSelectedTier = { 
+  FW: { players: "G5", basara: "Fabled+" }, 
+  MF: { players: "G5+", basara: "Fabled+" }, 
+  DF: { players: "GO", basara: "Fabled+" }, 
+  GK: { players: "G5", basara: "Fabled+" } 
+};
 
 let currentFilterGender = "";
 let currentFilterElement = "";
 
-// === Funções ===
+// Elementos DOM
+const playerLevelSelect = document.getElementById("player-level");
 
-// Calcular tier
+/* =========================================================
+   FORMULAS - CORREÇÃO: Multiplica primeiro, DEPOIS arredonda para baixo
+========================================================= */
+function floor(value) {
+  return Math.floor(value);
+}
+
+function calcDerived(s){
+  return {
+    "Shot AT": floor(s.Kick + s.Control),
+    "Focus AT": floor((s.Control + s.Technique) + (s.Kick * 0.5)),
+    "Focus DF": floor((s.Intelligence + s.Technique) + (s.Agility * 0.5)),
+    "Scramble AT": floor(s.Physical + s.Intelligence),
+    "Scramble DF": floor(s.Pressure + s.Intelligence),
+    "Castle Wall DF": floor(s.Physical + s.Pressure),
+    "KP": floor((s.Agility * 4) + (s.Physical * 3) + (s.Pressure * 2))
+  };
+}
+
+function getScaledStats(obj){
+  const base = {
+    Kick: obj.Kick,
+    Control: obj.Control,
+    Technique: obj.Technique,
+    Pressure: obj.Pressure,
+    Physical: obj.Physical,
+    Agility: obj.Agility,
+    Intelligence: obj.Intelligence
+  };
+  const scaled = {};
+  for(const k in base){
+    // CORREÇÃO: Multiplica primeiro, DEPOIS arredonda para baixo
+    scaled[k] = Math.floor(base[k] * currentMultiplier + 1e-9);
+  }
+  const derived = calcDerived(scaled);
+  const total = Object.values(scaled).reduce((a,b)=>a+b,0);
+  return { ...scaled, ...derived, "Total Stats": total };
+}
+
+/* =========================================================
+   TIER CALC (SEMPRE BASE)
+========================================================= */
 function calcTier(obj){
   if(obj.role==="GK"){ for(const t of GK_TIERS) if(obj["Total Stats"]>=t.Total && obj.KP>=t.KP) return t.tier; }
   else if(obj.role==="FW"){ for(const t of FW_TIERS) if(obj["Shot AT"]>=t.Shot && obj["Total Stats"]>=t.Total) return t.tier; }
@@ -313,31 +183,97 @@ function calcTier(obj){
   return null;
 }
 
-// Mostrar stats
+/* =========================================================
+   SHOW STATS - CORREÇÃO: Basara mostra nos lugares corretos
+========================================================= */
 function showStats(obj){
-  statsBasic.innerHTML=""; statsATDF.innerHTML="";
-  BASIC_STATS.forEach(s=>statsBasic.innerHTML+=`<div class="stat"><span>${s}</span><strong>${obj[s]}</strong></div>`);
-  ATDF_STATS.forEach(s=>statsATDF.innerHTML+=`<div class="stat"><span>${s}</span><strong>${obj[s]}</strong></div>`);
+  lastShownChar = obj;
+  statsBasic.innerHTML=""; 
+  statsATDF.innerHTML="";
+
+  if(currentMode==="players"){
+    const s = getScaledStats(obj);
+    // Stats básicos no painel superior
+    ["Kick","Control","Technique","Pressure","Physical","Agility","Intelligence","Total Stats"].forEach(k=>{
+      statsBasic.innerHTML+=`<div class="stat"><span>${k}</span><strong>${s[k]}</strong></div>`;
+    });
+    // AT/DF no painel inferior
+    ["Shot AT","Focus AT","Focus DF","Scramble AT","Scramble DF","Castle Wall DF","KP"].forEach(k=>{
+      statsATDF.innerHTML+=`<div class="stat"><span>${k}</span><strong>${s[k]}</strong></div>`;
+    });
+  } else {
+    // BASARA: Stats já estão calculados no objeto
+    // Stats básicos no painel superior
+    ["Kick","Control","Technique","Pressure","Physical","Agility","Intelligence","Total Stats"].forEach(k=>{
+      statsBasic.innerHTML+=`<div class="stat"><span>${k}</span><strong>${obj[k]}</strong></div>`;
+    });
+    // AT/DF no painel inferior
+    ["Shot AT","Focus AT","Focus DF","Scramble AT","Scramble DF","Castle Wall DF","KP"].forEach(k=>{
+      statsATDF.innerHTML+=`<div class="stat"><span>${k}</span><strong>${obj[k]}</strong></div>`;
+    });
+  }
 }
 
-// Construir tier list
-function build(role){
-  tierBar.innerHTML=""; tierGrid.innerHTML=""; statsPanel.style.display="none";
+/* =========================================================
+   UPDATE UI VISIBILITY
+========================================================= */
+function updateUIVisibility() {
+  // Controla visibilidade do multiplicador
+  if (currentMode === "players") {
+    playerLevelSelect.style.display = "inline-block";
+  } else {
+    playerLevelSelect.style.display = "none";
+  }
+}
+
+/* =========================================================
+   UPDATE POSITION TABS ACTIVE STATE
+========================================================= */
+function updatePositionTabs() {
+  const positionTabs = {
+    fw: document.getElementById("tab-fw"),
+    mf: document.getElementById("tab-mf"),
+    df: document.getElementById("tab-df"),
+    gk: document.getElementById("tab-gk")
+  };
+  
+  // Remove active de todas
+  Object.values(positionTabs).forEach(tab => tab.classList.remove("active"));
+  
+  // Adiciona active na posição atual
+  switch(currentRole) {
+    case "FW": positionTabs.fw.classList.add("active"); break;
+    case "MF": positionTabs.mf.classList.add("active"); break;
+    case "DF": positionTabs.df.classList.add("active"); break;
+    case "GK": positionTabs.gk.classList.add("active"); break;
+  }
+}
+
+/* =========================================================
+   BUILD PLAYERS
+========================================================= */
+function buildPlayers(role){
+  tierBar.innerHTML=""; 
+  tierGrid.innerHTML=""; 
+  statsPanel.style.display="none";
 
   let chars = rows.filter(r=>r.role===role && r.tier);
   if(currentFilterGender) chars = chars.filter(c => c.Gender === currentFilterGender);
   if(currentFilterElement) chars = chars.filter(c => c.Element === currentFilterElement);
 
-  const tiers = role==="GK"?["S","A","B","C","D","E"]:["S","A","B","C","D","E","F","G"];
+  const tiers = role==="GK"?["G5","G4+","G3+","G4-","G3-","G2"]:
+                role==="MF"?["G5+","G5-","G4+","G4-","G3+","G3-","G2+","G2-"]:
+                role==="DF"?["GO","G5 CB","G5 FB","G4 CB","G4 FB","G3 CB","G3 FB","G2"]:
+                ["G5","G4+","G4","G4-","G3+","G3-","G2+","G2-"];
 
   tiers.forEach(t => {
     const box = document.createElement("div");
     box.className = "tier-box";
     box.textContent = t;
-    if(t === lastSelectedTier[role]) box.classList.add("active");
+    if(t === lastSelectedTier[role].players) box.classList.add("active");
 
     box.onclick = () => {
-      lastSelectedTier[role] = t;
+      lastSelectedTier[role].players = t;
       Array.from(tierBar.children).forEach(child=>child.classList.remove("active"));
       box.classList.add("active");
 
@@ -345,125 +281,395 @@ function build(role){
       const list = chars.filter(c=>c.tier===t);
       if(!list.length) return;
       statsPanel.style.display="block";
-      showStats(list[0]);
+      showStats(list[list.length-1]);
       list.forEach(p=>{
         const c = document.createElement("div");
         c.className = "char-card";
         c.dataset.element = p.Element;
-        c.innerHTML = `<img src="images/${p.id}.png"><div class="char-tooltip"><div class="char-name">${p.name}</div><div class="char-element">${p.Element}</div></div>`;
+        c.innerHTML = `<img src="${p.Image}"><div class="char-tooltip"><div class="char-name">${p.name}</div><div class="char-element">${p.Element}</div></div>`;
         tierGrid.appendChild(c);
       });
     };
     tierBar.appendChild(box);
   });
 
-  // Abrir automaticamente o último tier selecionado
-  tierBar.querySelectorAll(".tier-box").forEach(box=>{
-    if(box.textContent===lastSelectedTier[role]) box.click();
+  // Trigger click no tier salvo
+  const boxes = tierBar.querySelectorAll(".tier-box");
+  let clicked = false;
+  boxes.forEach(box=>{
+    if(box.textContent===lastSelectedTier[role].players) {
+      box.click();
+      clicked = true;
+    }
   });
+  if (!clicked && boxes.length > 0) boxes[0].click();
 }
 
-// Tabs
-function activateTab(tabId, role){
-  currentRole = role;
-  document.querySelectorAll(".tab").forEach(t=>t.classList.remove("active"));
-  document.getElementById(tabId).classList.add("active");
-  build(role);
-}
-
-document.getElementById("tab-fw").onclick = () => activateTab("tab-fw","FW");
-document.getElementById("tab-mf").onclick = () => activateTab("tab-mf","MF");
-document.getElementById("tab-df").onclick = () => activateTab("tab-df","DF");
-document.getElementById("tab-gk").onclick = () => activateTab("tab-gk","GK");
-
-// === Filtros dropdown ===
-const filterBtn = document.getElementById("filter-btn");
-const filterDropdown = document.getElementById("filter-dropdown");
-const filterGender = document.getElementById("filter-gender");
-const filterElement = document.getElementById("filter-element");
-const resetFiltersBtn = document.getElementById("reset-filters");
-
-// Toggle dropdown
-filterBtn.onclick = e => {
-  e.stopPropagation();
-  filterDropdown.style.display = filterDropdown.style.display === "flex" ? "none" : "flex";
+/* =========================================================
+   BUILD BASARA
+========================================================= */
+const BASARA_STATS = {
+  FW: {
+    "Fabled+": { tiers:["G5","G4+","G4","G4-"], Kick:243,Control:231,Technique:211,Pressure:177,Physical:170,Agility:170,Intelligence:187 },
+    "Fabled-": { tiers:["G3+","G3-","G2+","G2-"], Kick:229,Control:224,Technique:204,Pressure:182,Physical:177,Agility:170,Intelligence:201 }
+  },
+  GK: {
+    "Fabled+": { tiers:["G5","G4+","G4-","G2"], Kick:180,Control:194,Technique:182,Pressure:197,Physical:211,Agility:222,Intelligence:194 },
+    "Fabled-": { tiers:["G3+","G3-"], Kick:180,Control:194,Technique:182,Pressure:204,Physical:211,Agility:214,Intelligence:194 }
+  },
+  MF: {
+    "Fabled+": { tiers:["G5+","G5-","G4+","G3+"], Kick:201,Control:231,Technique:232,Pressure:177,Physical:170,Agility:170,Intelligence:210 },
+    "Fabled-": { tiers:["G4-","G3-","G2+","G2-"], Kick:210,Control:224,Technique:219,Pressure:182,Physical:184,Agility:170,Intelligence:201 }
+  },
+  DF: {
+    "Fabled+": { tiers:["GO","G5 CB","G4 CB","G3 CB"], Kick:172,Control:180,Technique:177,Pressure:211,Physical:219,Agility:182,Intelligence:243 },
+    "Fabled-": { tiers:["G5 FB","G4 FB","G3 FB","G2"], Kick:180,Control:189,Technique:190,Pressure:204,Physical:211,Agility:182,Intelligence:229 }
+  }
 };
 
-// Evitar que clique dentro do dropdown feche
-filterDropdown.onclick = e => e.stopPropagation();
+function buildBasara(role){
+  tierBar.innerHTML=""; 
+  tierGrid.innerHTML=""; 
+  statsPanel.style.display="none";
 
-// Fechar se clicar fora
-document.addEventListener("click", () => {
-  filterDropdown.style.display = "none";
-});
+  // Filtros aplicados no Basara
+  let chars = rows.filter(r=>r.role===role);
+  if(currentFilterGender) chars = chars.filter(c => c.Gender === currentFilterGender);
+  if(currentFilterElement) chars = chars.filter(c => c.Element === currentFilterElement);
 
-// Aplicar filtros
-filterGender.onchange = e => { currentFilterGender = e.target.value; build(currentRole); };
-filterElement.onchange = e => { currentFilterElement = e.target.value; build(currentRole); };
+  ["Fabled+","Fabled-"].forEach(bt=>{
+    const box = document.createElement("div");
+    box.className="tier-box";
+    box.textContent=bt;
+    if(bt === lastSelectedTier[role].basara) box.classList.add("active");
 
-// Resetar filtros
-resetFiltersBtn.onclick = () => {
-  currentFilterGender = "";
-  currentFilterElement = "";
-  filterGender.value = "";
-  filterElement.value = "";
-  build(currentRole);
-};
+    box.onclick=()=>{
+      lastSelectedTier[role].basara = bt;
+      Array.from(tierBar.children).forEach(child=>child.classList.remove("active"));
+      box.classList.add("active");
+      tierGrid.innerHTML="";
 
-// === Pesquisa ===
-const searchBar = document.getElementById("search-bar");
-const searchResults = document.getElementById("search-results");
+      const cfg = BASARA_STATS[role][bt];
+      const baseStats = {...cfg};
+      delete baseStats.tiers;
 
-searchBar.addEventListener("input", ()=>{
-  const query = searchBar.value.toLowerCase();
-  searchResults.innerHTML="";
-  if(!query) return;
-  const filtered = rows.filter(r=>r.name.toLowerCase().includes(query) || r["Name(Localised)"]?.toLowerCase().includes(query));
-  filtered.slice(0,50).forEach(r=>{
-    const div = document.createElement("div");
-    div.className="search-item";
-    div.innerHTML=`<img src="images/${r.id}.png"><span>${r.name} (${r["Name(Localised)"]})</span>`;
-    div.onclick = () => {
-      searchResults.innerHTML="";
-      searchBar.value="";
-      activateTab("tab-"+r.role.toLowerCase(),r.role);
-      lastSelectedTier[r.role] = r.tier;
-      tierBar.querySelectorAll(".tier-box").forEach(box=>{
-        if(box.textContent===r.tier) box.click();
+      const derived = calcDerived(baseStats);
+      const total = Object.values(baseStats).reduce((a,b)=>a+b,0);
+      const statsObj = { ...baseStats, ...derived, "Total Stats": total };
+
+      statsPanel.style.display="block";
+      showStats(statsObj);
+
+      // Aplica filtros aos personagens exibidos
+      const filteredChars = chars.filter(p => cfg.tiers.includes(p.tier));
+      filteredChars.forEach(p=>{
+        const c = document.createElement("div");
+        c.className="char-card";
+        c.dataset.element=p.Element;
+        c.innerHTML=`<img src="${p.Image}"><div class="char-tooltip"><div class="char-name">${p.name}</div><div class="char-element">${p.Element}</div></div>`;
+        tierGrid.appendChild(c);
       });
     };
+
+    tierBar.appendChild(box);
+  });
+
+  // Trigger click no tier salvo
+  const boxes = tierBar.querySelectorAll(".tier-box");
+  let clicked = false;
+  boxes.forEach(box=>{
+    if(box.textContent===lastSelectedTier[role].basara) {
+      box.click();
+      clicked = true;
+    }
+  });
+  if (!clicked && boxes.length > 0) boxes[0].click();
+}
+
+/* =========================================================
+   CONTROLES UI
+========================================================= */
+function build(){
+  if(currentMode==="players") buildPlayers(currentRole);
+  else buildBasara(currentRole);
+  updateUIVisibility();
+  updatePositionTabs();
+}
+
+// Tabs modo
+document.getElementById("tab-players").onclick=()=>{
+  currentMode="players";
+  document.getElementById("tab-players").classList.add("active");
+  document.getElementById("tab-basara").classList.remove("active");
+  build();
+};
+document.getElementById("tab-basara").onclick=()=>{
+  currentMode="basara";
+  document.getElementById("tab-basara").classList.add("active");
+  document.getElementById("tab-players").classList.remove("active");
+  build();
+};
+
+// Tabs posição
+document.getElementById("tab-fw").onclick=()=>{ 
+  currentRole="FW"; 
+  build(); 
+};
+document.getElementById("tab-mf").onclick=()=>{ 
+  currentRole="MF"; 
+  build(); 
+};
+document.getElementById("tab-df").onclick=()=>{ 
+  currentRole="DF"; 
+  build(); 
+};
+document.getElementById("tab-gk").onclick=()=>{ 
+  currentRole="GK"; 
+  build(); 
+};
+
+// Multiplicador
+playerLevelSelect.addEventListener("change", e=>{
+  currentMultiplier=parseFloat(e.target.value);
+  if(lastShownChar && currentMode==="players") showStats(lastShownChar);
+});
+
+/* =========================================================
+   FILTROS
+========================================================= */
+const filterBtn=document.getElementById("filter-btn");
+const filterDropdown=document.getElementById("filter-dropdown");
+const filterGender=document.getElementById("filter-gender");
+const filterElement=document.getElementById("filter-element");
+const resetFiltersBtn=document.getElementById("reset-filters");
+
+filterBtn.onclick=e=>{ e.stopPropagation(); filterDropdown.style.display = filterDropdown.style.display==="flex"?"none":"flex"; };
+filterDropdown.onclick=e=>e.stopPropagation();
+document.addEventListener("click",()=>{ filterDropdown.style.display="none"; });
+
+filterGender.onchange=e=>{ 
+  currentFilterGender=e.target.value; 
+  build(); // Sempre rebuild, independente do modo
+};
+filterElement.onchange=e=>{ 
+  currentFilterElement=e.target.value; 
+  build(); // Sempre rebuild, independente do modo
+};
+resetFiltersBtn.onclick=()=>{
+  currentFilterGender=""; currentFilterElement="";
+  filterGender.value=""; filterElement.value="";
+  build(); // Sempre rebuild, independente do modo
+};
+
+/* =========================================================
+   SEARCH
+========================================================= */
+const SECRET_IMAGE ="https://dxi4wb638ujep.cloudfront.net/1/prd/assets/4/img/shared/icn_secret_character.png";
+const searchBar=document.getElementById("search-bar");
+const searchResults=document.getElementById("search-results");
+
+searchBar.addEventListener("input", ()=>{
+  const q=searchBar.value.toLowerCase();
+  searchResults.innerHTML="";
+  if(!q) return;
+  const filtered=rows.filter(r=>
+
+  r.Image !== SECRET_IMAGE &&
+
+  (
+    r.name?.toLowerCase().includes(q) ||
+    r["Name(Localised)"]?.toLowerCase().includes(q)
+  )
+
+);
+  filtered.slice(0,50).forEach(r=>{
+    const div=document.createElement("div");
+    div.className="search-item";
+    div.innerHTML=`<img src="${r.Image}"><span>${r.name} (${r["Name(Localised)"]||""})</span>`;
+    div.onclick=()=>{
+	  searchResults.innerHTML="";
+	  searchBar.value="";
+	  currentRole = r.role;
+
+	  // Se estiver em Players
+	  if(currentMode === "players"){
+		document.getElementById("tab-players").classList.add("active");
+		document.getElementById("tab-basara").classList.remove("active");
+
+		updatePositionTabs();
+
+		lastSelectedTier[r.role].players = r.tier;
+		buildPlayers(r.role);
+	  } 
+	  // Se estiver em Fabled
+	  else {
+		document.getElementById("tab-basara").classList.add("active");
+		document.getElementById("tab-players").classList.remove("active");
+
+		updatePositionTabs();
+
+		// Descobre se o personagem é Fabled+ ou Fabled-
+		const roleCfg = BASARA_STATS[r.role];
+		let foundTier = "Fabled+";
+
+		for (const key in roleCfg) {
+		  if (roleCfg[key].tiers.includes(r.tier)) {
+			foundTier = key;
+			break;
+		  }
+		}
+
+		lastSelectedTier[r.role].basara = foundTier;
+		buildBasara(r.role);
+	  }
+	};
     searchResults.appendChild(div);
   });
 });
 
-// === Carregar dados ===
-Promise.all([fetch(URL_MAIN).then(r=>r.text()), fetch(URL_STATS).then(r=>r.text())]).then(([m,s])=>{
-  const mj = JSON.parse(m.substring(47,m.length-2));
-  const sj = JSON.parse(s.substring(47,s.length-2));
-  mj.table.cols.forEach((c,i)=>cols[c.label]=i);
-  sj.table.rows.forEach(r=>{
-    const id = r.c[0]?.v;
-    stats[id] = {};
-    sj.table.cols.forEach((c,i)=>stats[id][c.label]=r.c[i]?.v??0);
-  });
+/* =========================================================
+   CUSTOM CHARACTERS
+========================================================= */
 
-  rows = mj.table.rows.map(r=>{
-    const id = r.c[cols.ID]?.v;
-    const obj = {
-      id,
-      role:r.c[cols.Position]?.v,
-      name:r.c[cols["Name(Romaji)"]]?.v,
-      "Name(Localised)": r.c[cols["Name(Localised)"]]?.v,
-      Element:r.c[cols.Element]?.v,
-      Gender: r.c[cols.Gender]?.v
-    };
-    BASIC_STATS.forEach(s=>obj[s]=r.c[cols[s]]?.v??0);
-    ATDF_STATS.forEach(s=>obj[s]=stats[id]?.[s]??0);
-    obj.tier = calcTier(obj);
+const CUSTOM_TIERS = {
+  FW: "G3-",
+  MF: "G3-",
+  DF: "G4 FB",
+  GK: "G3+"
+};
+
+/* =========================================================
+   LOAD CSV DATABASE
+========================================================= */
+
+function parseCSV(text){
+  const lines = text.trim().split("\n");
+  const headers = lines[0].split(",");
+
+  return lines.slice(1).map(line=>{
+    const values = line.split(",");
+
+    const obj = {};
+    headers.forEach((h,i)=>{
+      obj[h.trim()] = values[i]?.trim();
+    });
+
     return obj;
   });
+}
 
-  build(currentRole);
+function getImagePath(id,url){
+  const localImages=[243,1516,1727,2620,2789,5744];
+
+  if(localImages.includes(Number(id)))
+    return `images/${id}.png`;
+
+  return url;
+}
+
+fetch("db.csv")
+.then(r=>r.text())
+.then(text=>{
+
+  const data = parseCSV(text);
+
+  rows = data.map(r=>{
+
+  const obj = {
+
+    id:Number(r.ID),
+
+    role:r.Position,
+
+    name:r.NameJP,
+    "Name(Localised)":r.NameEN,
+
+    Gender:r.Gender,
+    Element:r.Element,
+
+    Image:getImagePath(r.ID,r.Image),
+
+    Kick:Number(r.Kick),
+    Control:Number(r.Control),
+    Technique:Number(r.Technique),
+    Pressure:Number(r.Pressure),
+    Physical:Number(r.Physical),
+    Agility:Number(r.Agility),
+    Intelligence:Number(r.Intelligence)
+  };
+
+  const derived=calcDerived(obj);
+
+  obj["Shot AT"]=derived["Shot AT"];
+  obj["Focus AT"]=derived["Focus AT"];
+  obj["Focus DF"]=derived["Focus DF"];
+  obj["Scramble AT"]=derived["Scramble AT"];
+  obj["Scramble DF"]=derived["Scramble DF"];
+  obj["Castle Wall DF"]=derived["Castle Wall DF"];
+  obj["KP"]=derived["KP"];
+
+  obj["Total Stats"] =
+    obj.Kick +
+    obj.Control +
+    obj.Technique +
+    obj.Pressure +
+    obj.Physical +
+    obj.Agility +
+    obj.Intelligence;
+
+  obj.tier=calcTier(obj);
+
+  return obj;
+
+});
+
+
+/* =============================
+   CUSTOM AVATAR
+============================= */
+
+["FW","MF","DF","GK"].forEach(role=>{
+
+  rows.unshift({
+
+    id:0,
+
+    role:role,
+
+    name:"Custom Avatar",
+    "Name(Localised)":"Custom Avatar",
+
+    Gender:"",
+    Element:"",
+
+    Image:"images/0.png",
+
+    Kick:0,
+    Control:0,
+    Technique:0,
+    Pressure:0,
+    Physical:0,
+    Agility:0,
+    Intelligence:0,
+
+    "Shot AT":0,
+    "Focus AT":0,
+    "Focus DF":0,
+    "Scramble AT":0,
+    "Scramble DF":0,
+    "Castle Wall DF":0,
+    "KP":0,
+
+    "Total Stats":0,
+
+    tier:CUSTOM_TIERS[role]
+
+  });
+
+});
+
+build();
+
 });
 </script>
 </body>
