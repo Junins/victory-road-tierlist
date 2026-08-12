@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Victory Road — Hissatsu</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<nav class="navbar">
+  <div class="nav-brand">
+    <span class="mark">VICTORY ROAD</span>
+    <span class="sub">v7.0.2</span>
+  </div>
+  <div class="nav-links">
+    <a class="navlink" href="index.html">Tier List</a>
+    <a class="navlink" href="database.html">Database</a>
+    <a class="navlink" href="moves.html">Hissatsu</a>
+  </div>
+  <div class="lang-dropdown-container">
+    <button class="lang-toggle" id="lang-toggle" title="JP/EN Toggle">
+      <span class="lang-glyph">JP/EN</span>
+    </button>
+    <div class="lang-dropdown" id="lang-dropdown">
+      <div class="lang-row">
+        <span class="lang-row-label">Name</span>
+        <button class="lang-switch" data-lang-key="name"><span class="lang-jp">JP</span><span class="lang-en">EN</span></button>
+      </div>
+      <div class="lang-row">
+        <span class="lang-row-label">Team</span>
+        <button class="lang-switch" data-lang-key="team"><span class="lang-jp">JP</span><span class="lang-en">EN</span></button>
+      </div>
+      <div class="lang-row">
+        <span class="lang-row-label">Hissatsu</span>
+        <button class="lang-switch" data-lang-key="hissatsu"><span class="lang-jp">JP</span><span class="lang-en">EN</span></button>
+      </div>
+    </div>
+  </div>
+</nav>
+
+<header class="page-header">
+  <h1>Hi<span class="accent">ssatsu</span></h1>
+</header>
+
+<div class="tabs" id="maintype-tabs">
+  <div class="tab active" data-type="Shot">Shot</div>
+  <div class="tab" data-type="Offence">Offence</div>
+  <div class="tab" data-type="Defence">Defence</div>
+  <div class="tab" data-type="Goalkeep">Goalkeep</div>
+</div>
+
+<div class="toolbar">
+  <div class="filter-dropdown-container">
+    <button id="filter-btn">⚙️</button>
+    <div class="filter-dropdown" id="filter-dropdown">
+      <div id="ms-tension" class="filter-slot"></div>
+      <div id="ms-element" class="filter-slot"></div>
+      <div id="ms-subtype" class="filter-slot"></div>
+      <button id="mv-reset" class="reset-btn">Reset Filters</button>
+    </div>
+  </div>
+
+  <input type="text" id="mv-search" placeholder="Search move...">
+
+  <select id="mv-sort" class="db-select">
+    <option value="id-asc">Default</option>
+	<option value="power-asc">Power ↑</option>
+    <option value="power-desc">Power ↓</option>
+    <option value="element-asc">Element</option>
+    <option value="name-asc">Name ↑</option>
+    <option value="name-desc">Name ↓</option>
+  </select>
+
+  <select id="mv-pagesize" class="db-select">
+    <option value="50" selected>50 / page</option>
+    <option value="100">100 / page</option>
+    <option value="150">150 / page</option>
+    <option value="200">200 / page</option>
+    <option value="all">Show all</option>
+  </select>
+</div>
+
+<div class="db-count" id="mv-count"></div>
+
+<div class="moves-grid" id="moves-grid"></div>
+
+<div class="db-pagination" id="mv-pagination"></div>
+
+<footer class="site-footer">
+  Created by <a href="https://discord.com" target="_blank" rel="noopener">@KatamariEnjoyer (Discord)</a> · Based on <a href="https://docs.google.com/spreadsheets/u/0/d/1ocdMb7RUutC4yk6pMSMs-WVlqX6w9WQx/htmlview?pli=1" target="_blank" rel="noopener">@danifdez (Discord)'s Tier List</a> · Hissatsu Voicelines by <a href="https://docs.google.com/spreadsheets/d/1iRtzToQcxvzMfuwaPPcDNl1DXE5Fi_VK/edit?gid=1490542682#gid=1490542682" target="_blank" rel="noopener">SilasAndice (r/elcum27)</a>
+</footer>
+
+<script src="data.js"></script>
+<script src="filters.js"></script>
+<script src="ui.js"></script>
+<script src="moves.js"></script>
+</body>
+</html>

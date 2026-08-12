@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Victory Road — Database</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<nav class="navbar">
+  <div class="nav-brand">
+    <span class="mark">VICTORY ROAD</span>
+    <span class="sub">v7.0.2</span>
+  </div>
+  <div class="nav-links">
+    <a class="navlink" href="index.html">Tier List</a>
+    <a class="navlink" href="database.html">Database</a>
+    <a class="navlink" href="moves.html">Hissatsu</a>
+  </div>
+  <div class="lang-dropdown-container">
+    <button class="lang-toggle" id="lang-toggle" title="JP/EN Toggle">
+      <span class="lang-glyph">JP/EN</span>
+    </button>
+    <div class="lang-dropdown" id="lang-dropdown">
+      <div class="lang-row">
+        <span class="lang-row-label">Name</span>
+        <button class="lang-switch" data-lang-key="name"><span class="lang-jp">JP</span><span class="lang-en">EN</span></button>
+      </div>
+      <div class="lang-row">
+        <span class="lang-row-label">Team</span>
+        <button class="lang-switch" data-lang-key="team"><span class="lang-jp">JP</span><span class="lang-en">EN</span></button>
+      </div>
+      <div class="lang-row">
+        <span class="lang-row-label">Hissatsu</span>
+        <button class="lang-switch" data-lang-key="hissatsu"><span class="lang-jp">JP</span><span class="lang-en">EN</span></button>
+      </div>
+    </div>
+  </div>
+</nav>
+
+<header class="page-header">
+  <h1>Data<span class="accent">base</span></h1>
+</header>
+
+<div class="toolbar">
+  <div class="filter-dropdown-container">
+    <button id="filter-btn">⚙️</button>
+    <div class="filter-dropdown" id="filter-dropdown">
+      <div id="ms-game" class="filter-slot"></div>
+      <div id="ms-team" class="filter-slot"></div>
+      <div id="ms-role" class="filter-slot"></div>
+      <div id="ms-element" class="filter-slot"></div>
+      <div id="ms-roletype" class="filter-slot"></div>
+      <div id="ms-gender" class="filter-slot"></div>
+      <div id="ms-body" class="filter-slot"></div>
+      <div id="ms-age" class="filter-slot"></div>
+      <div id="ms-school" class="filter-slot"></div>
+      <button id="db-reset" class="reset-btn">Reset Filters</button>
+    </div>
+  </div>
+
+  <input type="text" id="db-search" placeholder="Search character...">
+
+  <div class="view-toggle" id="view-toggle">
+    <button id="view-list" class="active">List</button>
+    <button id="view-grid">Grid</button>
+  </div>
+
+  <select id="db-pagesize" class="db-select">
+    <option value="50" selected>50 / page</option>
+    <option value="100">100 / page</option>
+    <option value="150">150 / page</option>
+	<option value="200">200 / page</option>
+    <option value="all">Show all</option>
+  </select>
+</div>
+
+<div class="db-count" id="db-count"></div>
+
+<div class="db-table-wrap" id="db-table-wrap">
+  <table class="db-table" id="db-table">
+    <thead>
+      <tr>
+        <th data-key="id">ID</th>
+        <th data-key="name">Name</th>
+        <th data-key="role">Position</th>
+        <th data-key="RoleType">Role</th>
+        <th data-key="displayTeam">Team</th>
+        <th data-key="Game">Game</th>
+        <th data-key="tier">Tier</th>
+      </tr>
+    </thead>
+    <tbody id="db-tbody"></tbody>
+  </table>
+</div>
+
+<div class="db-cards" id="db-cards"></div>
+
+<div class="tier-grid" id="db-grid"></div>
+
+<div class="db-pagination" id="db-pagination"></div>
+
+<footer class="site-footer">
+  Created by <a href="https://discord.com" target="_blank" rel="noopener">@KatamariEnjoyer (Discord)</a> · Based on <a href="https://docs.google.com/spreadsheets/u/0/d/1ocdMb7RUutC4yk6pMSMs-WVlqX6w9WQx/htmlview?pli=1" target="_blank" rel="noopener">@danifdez (Discord)'s Tier List</a> · Hissatsu Voicelines by <a href="https://docs.google.com/spreadsheets/d/1iRtzToQcxvzMfuwaPPcDNl1DXE5Fi_VK/edit?gid=1490542682#gid=1490542682" target="_blank" rel="noopener">SilasAndice (r/elcum27)</a>
+</footer>
+
+<div class="modal-overlay" id="modal-overlay">
+  <div class="modal" id="modal">
+    <button class="modal-close" id="modal-close">✕</button>
+    <div class="modal-head">
+      <img class="ring" id="modal-img" src="" alt="">
+      <div>
+        <h2 id="modal-name"></h2>
+        <div class="meta" id="modal-meta"></div>
+      </div>
+    </div>
+    <div class="stats-section">
+      <h3>Stats</h3>
+      <div class="stats-grid" id="modal-stats-basic"></div>
+    </div>
+    <div class="stats-section">
+      <h3>AT / DF</h3>
+      <div class="stats-grid" id="modal-stats-atdf"></div>
+    </div>
+    <div class="stats-section" id="modal-moves-section">
+      <h3>Special Moves</h3>
+      <div class="modal-moves-list" id="modal-moves-list"></div>
+    </div>
+  </div>
+</div>
+
+<script src="data.js"></script>
+<script src="filters.js"></script>
+<script src="ui.js"></script>
+<script src="database.js"></script>
+</body>
+</html>

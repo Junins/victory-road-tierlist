@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Victory Road — Tier List (7.1.2)</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<nav class="navbar">
+  <div class="nav-brand">
+    <span class="mark">VICTORY ROAD</span>
+    <span class="sub">v7.0.2</span>
+  </div>
+  <div class="nav-links">
+    <a class="navlink" href="index.html">Tier List</a>
+    <a class="navlink" href="database.html">Database</a>
+    <a class="navlink" href="moves.html">Hissatsu</a>
+  </div>
+  <div class="lang-dropdown-container">
+    <button class="lang-toggle" id="lang-toggle" title="JP/EN Toggle">
+      <span class="lang-glyph">JP/EN</span>
+    </button>
+    <div class="lang-dropdown" id="lang-dropdown">
+      <div class="lang-row">
+        <span class="lang-row-label">Name</span>
+        <button class="lang-switch" data-lang-key="name"><span class="lang-jp">JP</span><span class="lang-en">EN</span></button>
+      </div>
+      <div class="lang-row">
+        <span class="lang-row-label">Team</span>
+        <button class="lang-switch" data-lang-key="team"><span class="lang-jp">JP</span><span class="lang-en">EN</span></button>
+      </div>
+      <div class="lang-row">
+        <span class="lang-row-label">Hissatsu</span>
+        <button class="lang-switch" data-lang-key="hissatsu"><span class="lang-jp">JP</span><span class="lang-en">EN</span></button>
+      </div>
+    </div>
+  </div>
+</nav>
+
+<header class="page-header">
+  <h1>Tier <span class="accent">List</span></h1>
+</header>
+
+<div class="tabs">
+  <div class="tab active" id="tab-players">Players</div>
+  <div class="tab" id="tab-hero">Hero</div>
+  <div class="tab" id="tab-basara">Fabled</div>
+</div>
+
+<div class="tabs" id="position-tabs">
+  <div class="tab active" id="tab-fw">FW</div>
+  <div class="tab" id="tab-mf">MF</div>
+  <div class="tab" id="tab-df">DF</div>
+  <div class="tab" id="tab-gk">GK</div>
+</div>
+
+<div class="search-container">
+  <div class="filter-dropdown-container">
+    <button id="filter-btn">⚙️</button>
+    <div class="filter-dropdown" id="filter-dropdown">
+      <div id="ms-game" class="filter-slot"></div>
+      <div id="ms-team" class="filter-slot"></div>
+      <div id="ms-role" class="filter-slot"></div>
+      <div id="ms-element" class="filter-slot"></div>
+      <div id="ms-roletype" class="filter-slot"></div>
+      <div id="ms-gender" class="filter-slot"></div>
+      <div id="ms-body" class="filter-slot"></div>
+      <div id="ms-age" class="filter-slot"></div>
+      <div id="ms-school" class="filter-slot"></div>
+      <button id="reset-filters">Reset Filters</button>
+    </div>
+  </div>
+
+  <input type="text" id="search-bar" placeholder="Search character...">
+
+  <select id="player-level" class="player-level-select">
+    <option value="1">Normal Player</option>
+    <option value="1.1">Growing Player</option>
+    <option value="1.2">Advanced Player</option>
+    <option value="1.3">Top Player</option>
+    <option value="1.4">Legendary Player</option>
+  </select>
+
+  <div class="search-results" id="search-results"></div>
+</div>
+
+<div class="tier-bar" id="tier-bar"></div>
+<div class="tier-note" id="tier-special-text"></div>
+
+<div class="stats-panel" id="stats-panel">
+  <div class="stats-section">
+    <h3>Stats</h3>
+    <div class="stats-grid" id="stats-basic"></div>
+  </div>
+  <div class="stats-section">
+    <h3>AT / DF</h3>
+    <div class="stats-grid" id="stats-atdf"></div>
+  </div>
+</div>
+
+<div class="tier-grid" id="tier-grid"></div>
+
+<footer class="site-footer">
+  Created by <a href="https://discord.com" target="_blank" rel="noopener">@KatamariEnjoyer (Discord)</a> · Based on <a href="https://docs.google.com/spreadsheets/u/0/d/1ocdMb7RUutC4yk6pMSMs-WVlqX6w9WQx/htmlview?pli=1" target="_blank" rel="noopener">@danifdez (Discord)'s Tier List</a> · Hissatsu Voicelines by <a href="https://docs.google.com/spreadsheets/d/1iRtzToQcxvzMfuwaPPcDNl1DXE5Fi_VK/edit?gid=1490542682#gid=1490542682" target="_blank" rel="noopener">SilasAndice (r/elcum27)</a>
+</footer>
+
+<script src="data.js"></script>
+<script src="filters.js"></script>
+<script src="ui.js"></script>
+<script src="tierlist.js"></script>
+</body>
+</html>
